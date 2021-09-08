@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor // 디폴트 생성자
@@ -25,8 +26,8 @@ public class Posts  extends BaseTimeEntity {
 
     private String author; // @Column 없으면 varchar(255), nullable = true
 
-    private LocalDate UpdateAt;
-    private LocalDate createAt;
+    //private LocalDate UpdateAt;
+    //private LocalDate createAt;
 
     @Builder // lombok 의 builder
     public Posts(String title, String content, String author) { // id가 없고 나머지 필드만있는
@@ -44,5 +45,7 @@ public class Posts  extends BaseTimeEntity {
     }
 
 
-
+   // public void setUpdateAt(LocalDate updateAt) {
+   //     UpdateAt = UpdateAt;
+   // }
 }

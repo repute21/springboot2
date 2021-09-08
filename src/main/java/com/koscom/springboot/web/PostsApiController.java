@@ -17,7 +17,7 @@ public class PostsApiController {
         return postsService.save(requestDto);
     }
 
-    // /api/v1/posts/1
+    // /api/v1/posts/update/1
     @PutMapping("/api/v1/posts/{id}")
     public Long update (@PathVariable Long id, @RequestBody PostsUpdateRequestDto dto) {
         return postsService.update(id, dto);
@@ -26,5 +26,11 @@ public class PostsApiController {
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById (@PathVariable Long id) {
         return postsService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
