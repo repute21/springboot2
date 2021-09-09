@@ -1,7 +1,8 @@
 package com.koscom.springboot.web;
 
+import com.koscom.springboot.config.auth.dto.SessionUser;
+import com.koscom.springboot.config.auth.login.LoginUser;
 import com.koscom.springboot.service.PostsService;
-import com.koscom.springboot.web.dto.posts.PostsListResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsResponseDto;
 import com.koscom.springboot.web.dto.posts.PostsSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -9,17 +10,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession  httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         postsService.save(new PostsSaveRequestDto("test", "test", "test"));
         model.addAttribute("posts", postsService.findAllDesc());
+
+        if (user != null) { // (2)
+            model.addAttribute("user", user.getName());
+        }
         return "index";
     }
 
